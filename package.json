@@ -1,0 +1,24 @@
+{
+  "name": "imagine-configurator-sdk-boilerplate",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Starter app for the imagine.io Configurator SDK — install, add your API key, get a live 3D configurator.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "zip:samples": "node scripts/build-sample-zips.mjs"
+  },
+  "dependencies": {
+    "@imagineio/configurator-sdk-staging": "^0.1.0-beta.14",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.0.0"
+  }
+}
