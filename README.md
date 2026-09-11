@@ -173,9 +173,6 @@ The zip is a **release asset, not a repo file** — 87 MB has no business in eve
 field-by-field notes *are* in the repo, so you can read the schema without downloading it:
 [data-samples/anne-import/CATALOG.md](data-samples/anne-import/CATALOG.md).
 
-A second bundle in the same format (a full kitchen — 327 components, 76 variants, 15 option
-sets) is built from the same tooling; see [scripts/build-sample-zips.mjs](scripts/build-sample-zips.mjs).
-
 ## Requirements
 
 Node ≥ 18, React 18, Vite. Peer deps (`three` 0.159, `@react-three/fiber` 8,

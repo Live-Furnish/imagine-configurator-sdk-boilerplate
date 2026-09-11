@@ -33,24 +33,6 @@ zip itself does not work. Drop the extracted folder on the importer's folder pic
 
 Full walkthrough: **[../docs/import-sample-catalog.md](../docs/import-sample-catalog.md)**.
 
-## Rebuilding a bundle
-
-From a source folder containing `catalog.xlsx` plus its asset subfolders:
-
-```bash
-npm run zip:samples                      # builds whatever it can find
-npm run zip:samples -- --only anne       # just the sofa
-npm run zip:samples -- --only anne --source ../anne-import
-```
-
-Output lands in `data-samples/dist/` (gitignored). Upload it with:
-
-```bash
-gh release upload <tag> data-samples/dist/anne-import.zip
-```
-
-See [`../scripts/build-sample-zips.mjs`](../scripts/build-sample-zips.mjs).
-
 ## Licence
 
 The 3D assets in these bundles are **non-commercial only, and stay that way** — a

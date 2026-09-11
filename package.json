@@ -7,8 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "zip:samples": "node scripts/build-sample-zips.mjs"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@imagineio/configurator-sdk-staging": "^0.1.0-beta.14",
