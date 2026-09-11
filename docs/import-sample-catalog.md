@@ -1,6 +1,6 @@
 # Importing the sample catalog
 
-`sectional-sofa-import.zip` is a complete, ready-to-import catalog for the **Anne modular
+`sectional-sofa-import.zip` will be a complete, ready-to-import catalog for the **Anne modular
 sofa** — workbook, 51 models, textures and thumbnails. Importing it gives you a populated
 configurator in a few minutes, and a worked example of the import format to model your own
 data on.

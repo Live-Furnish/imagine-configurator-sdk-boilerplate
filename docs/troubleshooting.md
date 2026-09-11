@@ -7,11 +7,13 @@ runtime.
 
 ## Install
 
-### `No matching version found for @imagineio/configurator-sdk-staging`
+### The SDK behaves like an older build, or a documented export is missing
 
-You installed without the `@beta` tag. This is the staging package; builds publish under the
-`beta` dist-tag and `latest` is deliberately empty so nothing pulls a staging build by
-accident. That error is the guard working.
+You probably installed without the `@beta` tag. This is the staging package; current builds
+publish under the `beta` dist-tag, and `latest` is **not** kept in step — it can sit several
+betas behind. Installing without the tag does not fail; it silently gives you the older build.
+Compare `npm ls @imagineio/configurator-sdk-staging` against
+`npm view @imagineio/configurator-sdk-staging dist-tags`, then reinstall:
 
 ```bash
 npm install @imagineio/configurator-sdk-staging@beta

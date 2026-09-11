@@ -5,8 +5,9 @@ pricing, save/share, AR, and AI-generated imagery, driven entirely by a catalog 
 in the admin panel. Install the package, add your API key, call `mount()` once — that is
 the whole integration.
 
-This repo gives you the working app, a complete sample catalog for a **modular sectional
-sofa**, and the steps to get from zero to a configurator running on your own data.
+This repo gives you the working app, the steps to get from zero to a configurator running on
+your own data, and the slots where sample catalogs for a **sectional sofa** and a **kitchen**
+will land (placeholders today — see [Sample catalogs](#sample-catalogs)).
 
 > **Licence:** non-commercial use only until you hold a paid subscription, and the sample
 > 3D assets are non-commercial **forever**, subscription or not. See [LICENSE.md](LICENSE.md)
@@ -48,9 +49,8 @@ org's data.
 **The configurator renders nothing until your organisation has a catalog.** There is no
 built-in demo data: a valid key pointed at an empty org gives you an empty scene.
 
-The fastest path is to import the sample catalog — a complete modular sofa, models and
-materials included. **Extract** the bundle zip, drop the extracted folder on the importer,
-then publish the layout:
+The fastest path, once the sample bundles are published, is to import one: **extract** the
+zip, drop the extracted folder on the importer, then publish the layout:
 
 → **[docs/import-sample-catalog.md](docs/import-sample-catalog.md)**
 
@@ -106,10 +106,11 @@ npm install -D @types/react@^18.3 @types/react-dom@^18.3
 
 Three details that are easy to get wrong, and what each one costs you:
 
-- **`@beta` is required.** This is the staging package; builds publish under the `beta`
-  dist-tag and `latest` is deliberately empty so nothing pulls a staging build by accident.
-  Installing without the tag fails with `No matching version found` — that is the guard
-  working, not a broken publish.
+- **Always install with `@beta`.** This is the staging package and current builds publish
+  under the `beta` dist-tag. `latest` is **not** kept in step — at the time of writing it
+  points at `0.1.0-beta.12` while `beta` is `0.1.0-beta.14` — so installing without the
+  tag does not fail, it silently gives you an older build. Check with
+  `npm view @imagineio/configurator-sdk-staging dist-tags`.
 - **Pin React 18.** A fresh Vite template scaffolds React 19, which the SDK's 3D stack does
   not support (`@react-three/fiber@8` needs React 18). Skip the pin and the install dies
   with `ERESOLVE`.
@@ -154,9 +155,9 @@ registries — import it from `main.jsx` (before `mount()`) to watch each one ta
 
 Full notes and the trap in each: **[docs/customizing.md](docs/customizing.md)**.
 
-## Sample catalog
+## Sample catalogs
 
-**`sectional-sofa-import.zip`** — the Anne modular sofa, complete and ready to import:
+**`sectional-sofa-import.zip`** — the Anne modular sofa. What the bundle will contain:
 
 | | |
 |---|---|
@@ -199,7 +200,7 @@ only when a theme names a Google font). Allow those in `script-src` / `style-src
 | Imported the sample, still empty | The layout is still a draft — publish it from the system's **Layouts** tab |
 | Importer can't find `catalog.xlsx` | You uploaded the zip instead of the extracted folder |
 | `ERESOLVE` on install | React 19 in the project — pin React 18 (see above) |
-| `No matching version found` | You installed without `@beta` |
+| SDK behaves like an older build | You installed without `@beta` and got `latest`, which lags behind |
 | Blank canvas, `three` `instanceof` errors | Two copies of `three` — add the `imagineConfigurator()` Vite plugin |
 
 More: **[docs/troubleshooting.md](docs/troubleshooting.md)**.
