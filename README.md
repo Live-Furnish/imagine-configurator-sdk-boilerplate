@@ -49,14 +49,43 @@ org's data.
 **The configurator renders nothing until your organisation has a catalog.** There is no
 built-in demo data: a valid key pointed at an empty org gives you an empty scene.
 
-The fastest path, once the sample bundles are published, is to import one: **extract** the
-zip, drop the extracted folder on the importer, then publish the layout:
+The fastest path is to import a sample bundle — five steps, a few minutes, and you get a
+fully-populated configurator instead of an empty scene.
 
-→ **[docs/import-sample-catalog.md](docs/import-sample-catalog.md)**
+**1. Extract the bundle.** Not optional: each zip contains a wrapping folder, so
+`catalog.xlsx` is *not* at the archive root and the importer cannot read the zip as-is.
 
-The long way round, for your own products, is the admin panel in this order: materials →
+```bash
+cd data-samples
+unzip sectional-sofa-import.zip      # or kitchen-import.zip
+```
+
+**2. Open the importer.** Admin panel → **Catalog Import** (`/catalog-import`).
+
+**3. Give it the folder, not the zip.** Choose **select folder** and pick the extracted
+`sectional-sofa-import` folder (or drag it onto the picker). The wizard finds `catalog.xlsx`
+and resolves the `models/…`, `textures/…` and `assets/…` paths relative to it.
+
+**4. Dry-run, then import.** The dry-run writes nothing — it reports unresolved file
+references, duplicate names and malformed JSON columns. Read it, then run the import.
+
+**5. Publish the layout.** ← *the step everyone misses.* The importer stops at a **draft**,
+exactly as the admin UI does. Open the system → **Layouts** tab → **Publish**. Until you do,
+the configurator has nothing live to load and mounts into an empty scene.
+
+Then grab the system id from its admin URL (`…/configurable-systems/2` → `2`) for
+`VITE_SYSTEM_ID` in step 3 below.
+
+> **Note:** the bundles in `data-samples/` are **placeholders** today — they contain a README
+> describing what will land in them, not catalog data. The steps above are the real
+> procedure and will not change when the assets ship.
+
+Field-by-field schema notes, the `swaps` column format, and what the flat import *cannot*
+express: **[docs/import-sample-catalog.md](docs/import-sample-catalog.md)**.
+
+**Building your own catalog instead?** The admin panel, in this order: materials →
 components → product graphs and variants → option sets and options → a configurable system
-that ties them together. The admin documentation walks through each step.
+that ties them together. Publish the layout at the end, exactly as in step 5.
 
 ## 3. Create an API key
 
@@ -124,9 +153,9 @@ npm install -D @types/react@^18.3 @types/react-dom@^18.3
 Three details that are easy to get wrong, and what each one costs you:
 
 - **Always install with `@beta`.** This is the staging package and current builds publish
-  under the `beta` dist-tag. `latest` is **not** kept in step — at the time of writing it
-  points at `0.1.0-beta.12` while `beta` is `0.1.0-beta.14` — so installing without the
-  tag does not fail, it silently gives you an older build. Check with
+  under the `beta` dist-tag. `latest` is **not** kept in step and lags several builds
+  behind, so installing without the tag does not fail — it silently gives you an older
+  build. Confirm the two tags differ before you trust a version:
   `npm view @imagineio/configurator-sdk-staging dist-tags`.
 - **Pin React 18.** A fresh Vite template scaffolds React 19, which the SDK's 3D stack does
   not support (`@react-three/fiber@8` needs React 18). Skip the pin and the install dies
