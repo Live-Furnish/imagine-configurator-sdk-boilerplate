@@ -9,7 +9,7 @@ Copyright © imagine.io and its content partners. All rights reserved.
 ## What this covers
 
 Every 3D asset distributed with the sample catalogs, wherever you obtained it — in this
-repository, inside `anne-import.zip` or any other sample bundle from the releases
+repository, inside `sectional-sofa-import.zip`, `kitchen-import.zip` or any other bundle
 page, or imported into your organisation's catalog:
 
 - `.glb` models (cabinets, doors, appliances, sofa modules, arms, legs, cushions)

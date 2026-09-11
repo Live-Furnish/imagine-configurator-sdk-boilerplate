@@ -1,40 +1,43 @@
 # Sample catalog data
 
-What is **in this folder** and what is **downloaded**, and why the split exists.
-
-## In the repo
-
 | Path | What |
 |---|---|
-| [`anne-import/CATALOG.md`](anne-import/CATALOG.md) | Field-by-field reference for the Anne sofa bundle — every sheet, every JSON column |
+| [`sectional-sofa-import.zip`](sectional-sofa-import.zip) | Sectional sofa bundle — **placeholder**, real assets not published yet |
+| [`kitchen-import.zip`](kitchen-import.zip) | Kitchen bundle — **placeholder**, real assets not published yet |
+| [`sectional-sofa-import/CATALOG.md`](sectional-sofa-import/CATALOG.md) | Field-by-field schema reference — every sheet, every JSON column |
 | [`LICENSE-ASSETS.md`](LICENSE-ASSETS.md) | Asset licence: **non-commercial, permanently** |
 
-## Not in the repo
+## Status
 
-The bundles themselves. `anne-import.zip` is ~87 MB and 295 files; nobody wants that in every
-clone, and the kitchen bundle is over GitHub's 100 MB per-file limit outright. They ship as
-**release assets**:
+Both zips currently contain only a README describing what will land in them. They exist so
+the paths, naming and import flow are settled before the assets arrive — download one today
+and you get no catalog data.
 
-→ [latest release](https://github.com/pnkj1002/imagine-configurator-sdk-boilerplate/releases/latest)
+`CATALOG.md` is the exception: it documents the **real** sectional-sofa workbook, verified
+sheet by sheet, so the schema is readable now even though the bundle is not downloadable.
+
+Until the real assets ship, build a catalog by hand in the admin panel:
+materials → components → product graphs and variants → option sets and options → a
+configurable system.
+
+## When a bundle lands
 
 ```bash
-gh release download --repo pnkj1002/imagine-configurator-sdk-boilerplate \
-  --pattern 'anne-import.zip'
+cd data-samples
+unzip sectional-sofa-import.zip
 ```
 
-`.gitignore` blocks `data-samples/*.zip` and the asset subfolders (`models/`, `textures/`,
-`materials/`, `thumbnails/`, `assets/`), so an extracted bundle sitting here never gets
-committed by accident. That makes this folder a convenient place to extract one.
-
-## Using a bundle
-
-**Extract it first** — the zip contains a wrapping `anne-import/` folder, so uploading the
-zip itself does not work. Drop the extracted folder on the importer's folder picker.
+**Extract it first.** Each zip contains a wrapping folder (`sectional-sofa-import/`), so
+uploading the zip itself to the importer does not work — `catalog.xlsx` has to sit at the
+root of whatever you hand it. Drop the extracted **folder** on the folder picker instead.
 
 Full walkthrough: **[../docs/import-sample-catalog.md](../docs/import-sample-catalog.md)**.
 
+> Extracting a real bundle here unpacks ~88 MB of models and textures. Keep those out of git
+> — they belong in the zip, not loose in the tree.
+
 ## Licence
 
-The 3D assets in these bundles are **non-commercial only, and stay that way** — a
-subscription unlocks commercial use of the code and SDK, never the artwork. Read
+The 3D assets are **non-commercial only, and stay that way** — a subscription unlocks
+commercial use of the code and SDK, never the artwork. Read
 [LICENSE-ASSETS.md](LICENSE-ASSETS.md) before shipping anything.

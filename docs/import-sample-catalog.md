@@ -1,41 +1,43 @@
 # Importing the sample catalog
 
-`anne-import.zip` is a complete, ready-to-import catalog for the **Anne modular sofa** —
-workbook, 51 models, textures and thumbnails. Importing it gives you a populated
+`sectional-sofa-import.zip` is a complete, ready-to-import catalog for the **Anne modular
+sofa** — workbook, 51 models, textures and thumbnails. Importing it gives you a populated
 configurator in a few minutes, and a worked example of the import format to model your own
 data on.
 
 You need an organisation and an owner login first — see [step 1 of the README](../README.md#1-sign-up).
 
 > **The short version:** download the zip → **extract it** → drop the extracted
-> `anne-import` **folder** on the importer → dry-run → import → publish the layout.
+> `sectional-sofa-import` **folder** on the importer → dry-run → import → publish the layout.
 
 ---
 
-## 1. Download
+> **The bundles are placeholders right now.** `data-samples/sectional-sofa-import.zip` and
+> `data-samples/kitchen-import.zip` are committed so the paths and flow are settled, but they
+> contain only a README — no catalog data yet. Everything below is the procedure for when the
+> real assets land; the counts in "What lands in your catalog" are read from the real
+> workbook. Until then, build a catalog by hand in the admin panel.
 
-The bundle is a **GitHub release asset**, not a file in this repo — at ~87 MB it has no
-business in every clone.
+## 1. Find the bundle
 
-Grab `anne-import.zip` from the
-[latest release](https://github.com/pnkj1002/imagine-configurator-sdk-boilerplate/releases/latest),
-or from the command line:
+It ships **in this repo** — cloning gets you everything, no separate download:
 
-```bash
-gh release download --repo pnkj1002/imagine-configurator-sdk-boilerplate \
-  --pattern 'anne-import.zip'
+```
+data-samples/sectional-sofa-import.zip      (~87 MB once published)
+data-samples/kitchen-import.zip             (~115 MB once published)
 ```
 
 ## 2. Extract it
 
 ```bash
-unzip anne-import.zip
+cd data-samples
+unzip sectional-sofa-import.zip
 ```
 
-You get a single `anne-import/` folder:
+You get a single `sectional-sofa-import/` folder:
 
 ```
-anne-import/
+sectional-sofa-import/
 ├── catalog.xlsx              ← the import workbook, 13 sheets
 ├── models/                   ← 51 component GLBs
 ├── textures/                 ← 221 upholstery + leg-finish maps
@@ -45,16 +47,16 @@ anne-import/
 ```
 
 **Extracting is not an optional convenience — do not upload the zip as-is.** Its root is the
-wrapping `anne-import/` folder rather than `catalog.xlsx`, which is not the shape the zip
+wrapping `sectional-sofa-import/` folder rather than `catalog.xlsx`, which is not the shape the zip
 upload path expects. The folder picker in the importer *does* strip that leading segment, so
 the extracted folder is the reliable route. If you specifically need a zip, re-zip the
-**contents** of `anne-import/` so `catalog.xlsx` sits at the archive root — not the folder
+**contents** of `sectional-sofa-import/` so `catalog.xlsx` sits at the archive root — not the folder
 itself.
 
 ## 3. Run the import
 
 1. Admin panel → **Catalog Import** (`/catalog-import`).
-2. Step 1: choose **select folder** and pick the extracted `anne-import` folder, or drag the
+2. Step 1: choose **select folder** and pick the extracted `sectional-sofa-import` folder, or drag the
    whole folder onto the picker. The wizard finds `catalog.xlsx` and resolves the
    `models/…`, `textures/…` and `assets/…` paths relative to it.
 3. Run the **dry-run validation**. It reports unresolved file references, duplicate names and
@@ -104,7 +106,7 @@ Counts below are read from `catalog.xlsx` itself, sheet by sheet.
 | Constraint | 4 | `max_count` caps (≤2 large/small corners, ≤2 large/small chaises per scene) |
 
 Field-by-field notes, including every JSON column shape:
-**[`../data-samples/anne-import/CATALOG.md`](../data-samples/anne-import/CATALOG.md)**.
+**[`../data-samples/sectional-sofa-import/CATALOG.md`](../data-samples/sectional-sofa-import/CATALOG.md)**.
 
 ### Two things worth knowing before you go looking for them
 
@@ -117,7 +119,7 @@ Field-by-field notes, including every JSON column shape:
 
 ### About the README inside the bundle
 
-`anne-import/README.md` is the notes from the generator, and it describes a **larger earlier
+The `README.md` inside the bundle is the notes from the generator, and it describes a **larger earlier
 run** (222 materials, 20 variants, 6 presets, 3 rules). The shipped workbook is the smaller
 set in the table above. Where the two disagree, **`catalog.xlsx` is the source of truth** —
 it is what the importer actually reads. Its explanations of the *format* (the `swaps` shape,

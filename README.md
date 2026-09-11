@@ -49,8 +49,8 @@ org's data.
 built-in demo data: a valid key pointed at an empty org gives you an empty scene.
 
 The fastest path is to import the sample catalog — a complete modular sofa, models and
-materials included. Download `anne-import.zip` from the releases page, **extract it**, and
-drop the extracted `anne-import` folder on the importer, then publish the layout:
+materials included. **Extract** the bundle zip, drop the extracted folder on the importer,
+then publish the layout:
 
 → **[docs/import-sample-catalog.md](docs/import-sample-catalog.md)**
 
@@ -156,22 +156,27 @@ Full notes and the trap in each: **[docs/customizing.md](docs/customizing.md)**.
 
 ## Sample catalog
 
-**`anne-import.zip`** — the Anne modular sofa, complete and ready to import:
+**`sectional-sofa-import.zip`** — the Anne modular sofa, complete and ready to import:
 
 | | |
 |---|---|
 | **Catalog** | 51 components, 15 product variants, 7 option sets, 19 materials, 41 options, 2 layout presets, 7 rules, 4 constraints |
 | **Assets** | 51 GLB models, 221 textures, 20 thumbnails, 1 studio HDRI |
 | **Size** | ~87 MB zipped (295 files) |
-| **Download** | [`anne-import.zip`](https://github.com/pnkj1002/imagine-configurator-sdk-boilerplate/releases/latest) (release asset) |
+| **Status** | **Not published yet** — [`data-samples/sectional-sofa-import.zip`](data-samples/sectional-sofa-import.zip) is a placeholder |
 
-**Download it, extract it, then drop the extracted `anne-import` folder** on the importer —
-the zip has a wrapping folder inside, so uploading the zip itself does not work. Full walkthrough:
-[docs/import-sample-catalog.md](docs/import-sample-catalog.md).
+A second bundle, **kitchen** (327 components, 76 variants, 15 option sets), is also on the
+way: [`data-samples/kitchen-import.zip`](data-samples/kitchen-import.zip), likewise a
+placeholder for now.
 
-The zip is a **release asset, not a repo file** — 87 MB has no business in every clone. The
-field-by-field notes *are* in the repo, so you can read the schema without downloading it:
-[data-samples/anne-import/CATALOG.md](data-samples/anne-import/CATALOG.md).
+Both archives currently hold only a README describing what will land in them. Until the real
+assets ship, build your catalog in the admin panel by hand — see step 2 above.
+
+The import mechanics will not change when they do: extract the zip, then drop the **extracted
+folder** on the importer (the wrapping folder inside means the zip itself cannot be uploaded).
+
+Full walkthrough: [docs/import-sample-catalog.md](docs/import-sample-catalog.md).
+Field-by-field schema notes: [data-samples/sectional-sofa-import/CATALOG.md](data-samples/sectional-sofa-import/CATALOG.md).
 
 ## Requirements
 
@@ -192,7 +197,7 @@ only when a theme names a Google font). Allow those in `script-src` / `style-src
 | 401 on every request | Wrong or revoked API key |
 | Empty scene, no errors | Valid key, but the org has no catalog, or `systemId` names a system whose layout was never published |
 | Imported the sample, still empty | The layout is still a draft — publish it from the system's **Layouts** tab |
-| Importer can't find `catalog.xlsx` | You uploaded `anne-import.zip` instead of the extracted folder |
+| Importer can't find `catalog.xlsx` | You uploaded the zip instead of the extracted folder |
 | `ERESOLVE` on install | React 19 in the project — pin React 18 (see above) |
 | `No matching version found` | You installed without `@beta` |
 | Blank canvas, `three` `instanceof` errors | Two copies of `three` — add the `imagineConfigurator()` Vite plugin |

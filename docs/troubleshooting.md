@@ -90,7 +90,7 @@ The key is valid and nothing throws — you just get an empty canvas. In order o
 
 | Symptom | Cause |
 |---|---|
-| Wizard cannot find `catalog.xlsx` | You uploaded `anne-import.zip` as-is. Extract it and drop the `anne-import` **folder** — the zip has a wrapping folder at its root |
+| Wizard cannot find `catalog.xlsx` | You uploaded the zip as-is. Extract it and drop the extracted **folder** — the zip has a wrapping folder at its root |
 | Unresolved file references in dry-run | The folder was moved without its subdirectories, or an extra wrapping folder was added. `models/…` paths resolve relative to `catalog.xlsx` |
 | Duplicate name errors | The catalog already has entities from a previous import. Import into a clean org, or rename |
 | Malformed JSON column | `swaps`, `components`, `placements`, `value_json` and `environment` are JSON. A trailing comma or a smart quote from a spreadsheet editor will fail the dry-run |

@@ -6,15 +6,6 @@ dist-ssr
 .env.*.local
 *.local
 
-# Sample asset bundles are downloaded from GitHub Releases, never committed —
-# the kitchen zip alone is ~110 MB, over GitHub's 100 MB per-file push limit.
-data-samples/**/models/
-data-samples/**/textures/
-data-samples/**/materials/
-data-samples/**/thumbnails/
-data-samples/**/assets/
-data-samples/*.zip
-data-samples/dist/
 
 .DS_Store
 *.log
