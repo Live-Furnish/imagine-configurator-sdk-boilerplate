@@ -46,6 +46,13 @@ error — you just get wrong autocomplete everywhere.
 - You edited `.env.local` while the dev server was running. **Vite reads env files at
   startup only** — restart `npm run dev`.
 
+### Everything loads, but saving or sharing silently does nothing
+
+Your key is **read-only**. Check the prefix: `ck_ro_…` is read-only, `ck_…` is read & write.
+A read-only key serves catalog, evaluate and pricing — it cannot save projects or upload
+renders, and it cannot mint a read-write session token, so no client-side change works
+around it. Create a read & write key, or edit the existing key's scope in the admin panel.
+
 ### 401 on every request
 
 Wrong or revoked key. Keys are shown in full exactly once, at creation; if you did not copy

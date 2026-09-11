@@ -60,8 +60,25 @@ that ties them together. The admin documentation walks through each step.
 
 ## 3. Create an API key
 
-In the admin panel: **Settings → API Keys → Create key**. Copy it immediately — the full
-key is shown once. Keys look like `ck_…`.
+In the admin panel: **Settings → API Keys → Create key**.
+
+**Copy it immediately.** The full key is returned only in the response that creates it —
+every later read shows it masked as `ck_…abcd` (last four characters), so a key you did not
+copy cannot be recovered. Create a replacement and revoke the old one.
+
+**Choose the scope deliberately**, because it is enforced by the platform, not by your code:
+
+| Scope | Key looks like | What it can do |
+|---|---|---|
+| **Read & write** | `ck_…` | Everything — catalog, pricing, **and saving projects / uploading renders**. Use this one for the boilerplate. |
+| Read only | `ck_ro_…` | Catalog, evaluate and pricing only. **Cannot save projects**, and cannot mint a read-write session token. |
+
+The configurator loads and renders fine on a read-only key — the failure only shows up later,
+when save/share does nothing. If that is what you are seeing, check the prefix on your key.
+
+Keys are per-organisation and you can hold several, so give each consumer its own
+(storefront, mobile, this boilerplate) and revoke them independently. Scope stays editable
+after creation: flipping a leaked key to read-only defangs it without breaking read traffic.
 
 Then put it in `.env.local` (never in source, never in git):
 
@@ -196,6 +213,7 @@ only when a theme names a Google font). Allow those in `script-src` / `style-src
 |---|---|
 | Blank page, "Setup needed" | `VITE_API_KEY` or `VITE_SYSTEM_ID` missing from `.env.local` — or you edited it without restarting the dev server |
 | 401 on every request | Wrong or revoked API key |
+| Loads fine, but save/share does nothing | Read-only key (`ck_ro_…`) — create a read & write key |
 | Empty scene, no errors | Valid key, but the org has no catalog, or `systemId` names a system whose layout was never published |
 | Imported the sample, still empty | The layout is still a draft — publish it from the system's **Layouts** tab |
 | Importer can't find `catalog.xlsx` | You uploaded the zip instead of the extracted folder |
