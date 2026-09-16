@@ -6,6 +6,13 @@ Copyright © imagine.io. All rights reserved.
 Publicly downloadable is not the same as freely usable. This repository is source-available,
 not open source.
 
+**"You"** means the individual or legal entity exercising rights under this licence. Where you
+act on behalf of an organisation — as an employee or contractor — "you" includes that
+organisation, and you confirm you have authority to bind it.
+
+By downloading, copying, installing or using this repository, you accept this licence. If you
+do not accept it, do not use the material.
+
 ---
 
 ## 1. What this licence covers
@@ -56,9 +63,10 @@ A subscription **grants those three rights**, for as long as it is current, unde
 your subscription agreement. It does not lift section 4, and it does not change the asset
 licence — see section 1 and the asset licence file.
 
-Each production deployment must be covered by a subscription held by whoever operates it. Your
-subscription covers the deployments you operate; if you deliver a configurator to a client who
-runs it themselves, they need their own.
+One subscription covers the configurators **you** operate, within the limits of the plan you
+purchase — how many deployments you may run, and any usage limits, are set by that plan and
+your subscription agreement, not by this licence. If you deliver a configurator to a third
+party who operates it themselves, that party needs their own subscription.
 
 Delivering a configurator is not the same as delivering **this repository**. Passing on the
 boilerplate itself — as source, a starter kit, a template or a development tool — is never
