@@ -1,8 +1,15 @@
 # Sample Asset Licence — Non-Commercial, Permanently
 
-Copyright © imagine.io and its content partners. All rights reserved.
+Copyright © imagine.io. All rights reserved.
 
 **Read this before you use any model or texture from these bundles in anything real.**
+
+**"You"** means the individual or legal entity using these assets. Where you act on behalf of
+an organisation — as an employee or contractor — "you" includes that organisation, and you
+confirm you have authority to bind it.
+
+By downloading, extracting, importing or otherwise using any of these assets, you accept this
+licence. If you do not accept it, delete them and do not use them.
 
 ---
 
@@ -42,13 +49,21 @@ this artwork, and it never will. They are sample data, not stock you have bought
 - Use them to **train** machine-learning or generative models.
 - Represent them as **your own work**, or as products you manufacture or sell.
 - **Remove or alter** copyright or attribution metadata embedded in the files.
+- **Modify them in any way** — no editing, retopologising, re-texturing, re-rigging, re-scaling,
+  recolouring, decimating, format conversion or extraction of parts — and no **derivative
+  works** built from them. Use them as shipped or not at all. Any derivative nonetheless
+  created remains subject to this licence and gives you no rights in it. This does not
+  restrict format conversion carried out automatically by imagine.io's own import tooling as
+  part of a normal catalog import.
 
-## Third-party rights
+## Ownership
 
-Some assets depict real furniture designs and finishes from imagine.io's content partners.
-Design rights, trade dress and trademarks in those products belong to their respective
-owners and are **not** licensed to you by this file — a fact that does not change no matter
-how the assets reach you.
+imagine.io created these assets in-house and **owns them outright**. The furniture, finishes
+and environments they depict are original designs — they are not reproductions of, and are
+not licensed from, any manufacturer or third party.
+
+Nothing in this file transfers ownership or grants you any right beyond the limited,
+non-commercial permissions listed under "You may".
 
 ## Replacing them
 
@@ -56,11 +71,15 @@ For a commercial deployment, replace the sample assets with artwork you own or h
 The catalog workbooks are designed for exactly this: swap the file paths in the `models/`
 and `textures/` columns, keep the structure, re-import.
 
+## No warranty, no liability
+
+THESE ASSETS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL IMAGINE.IO BE LIABLE FOR ANY CLAIM, DAMAGES
+OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT
+OF OR IN CONNECTION WITH THESE ASSETS OR THEIR USE.
+
 ## Termination
 
-These rights end automatically on breach, or when your evaluation ends. On termination,
-delete the assets from your systems and from any catalog you imported them into.
-
----
-
-Questions about licensing the assets commercially: **legal@imagine.io**
+These rights end automatically on breach, or on written notice from imagine.io. On
+termination, delete the assets from your systems and from any catalog you imported them into.
