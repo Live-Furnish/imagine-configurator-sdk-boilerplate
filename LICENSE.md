@@ -64,10 +64,13 @@ A Subscription **grants those three rights**, for as long as it is current, unde
 your subscription agreement. It does not lift section 4, and it does not change the asset
 licence — see section 1 and the asset licence file.
 
-One Subscription covers the configurators **you** operate, within the limits of the plan you
-purchase — how many deployments you may run, and any usage limits, are set by that plan and
-your subscription agreement, not by this licence. If you deliver a configurator to a third
-party who operates it themselves, that party needs their own Subscription.
+A Subscription covers the configurators you run for **your own** business, within the limits
+of the plan you purchase — how many deployments you may run, and any usage limits, are set by
+that plan and your subscription agreement, not by this licence.
+
+A **separate Subscription is required for each third party** — each client, customer or brand
+— for whom you build, deploy or operate a configurator, whether or not that party operates it
+themselves. One Subscription does not cover configurators for multiple clients.
 
 Delivering a configurator is not the same as delivering **this repository**. Passing on the
 boilerplate itself — as source, a starter kit, a template or a development tool — is never
