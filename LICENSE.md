@@ -16,8 +16,13 @@ distributed with the sample catalogs (models, textures, thumbnails, HDRIs — wh
 repository or downloaded from its releases) are covered by a separate and stricter licence:
 [`data-samples/LICENSE-ASSETS.md`](data-samples/LICENSE-ASSETS.md).
 
-The `@imagineio/configurator-sdk-staging` npm package is **not** covered here. It is
-licensed separately under the terms shipped inside that package.
+The imagine.io Configurator SDK npm package — `@imagineio/configurator-sdk`, and any
+pre-release or beta build of it — is **not** covered here. It is licensed separately under
+the terms shipped inside that package.
+
+This licence **grants you no rights in the SDK**. Where section 4 places obligations on your
+use of it, those are promises you make in return for this boilerplate, not a grant — they
+bind you either way, and the SDK's own licence governs what you may actually do with it.
 
 ## 2. Non-commercial use, granted to everyone
 
@@ -36,19 +41,30 @@ member of the public can transact against is not.
 
 ## 3. Commercial use requires a subscription
 
+In this section, **"a configurator"** means an application you build from this code — not the
+code in this repository itself.
+
 A current paid imagine.io subscription is required before you may:
 
-- Deploy a configurator built from this code to a **production or customer-facing**
-  environment.
-- Use it in, or as part of, any offering that is **sold, licensed or monetised**, including
-  advertising-supported and lead-generating deployments.
-- Provide it to **third parties** as a product, a service, or a component of either.
+- Deploy a configurator to a **production or customer-facing** environment.
+- Use a configurator in, or as part of, any offering that is **sold, licensed or monetised**,
+  including advertising-supported and lead-generating deployments.
+- Deliver a configurator to a **third party** — a client, customer or partner — as a product,
+  a service, or a component of either.
 
-Once a subscription is active, sections 2 and 3 stop constraining the **code** in this
-repository for the duration of that subscription, under the terms of your subscription
-agreement. **The asset licence does not change** — see section 1 and the asset licence file.
+A subscription **grants those three rights**, for as long as it is current, under the terms of
+your subscription agreement. It does not lift section 4, and it does not change the asset
+licence — see section 1 and the asset licence file.
 
-If the subscription lapses, the rights in section 3 lapse with it: take the deployment down,
+Each production deployment must be covered by a subscription held by whoever operates it. Your
+subscription covers the deployments you operate; if you deliver a configurator to a client who
+runs it themselves, they need their own.
+
+Delivering a configurator is not the same as delivering **this repository**. Passing on the
+boilerplate itself — as source, a starter kit, a template or a development tool — is never
+permitted; see section 4.
+
+If the subscription lapses, the rights in this section lapse with it: take the deployment down,
 or renew.
 
 ## 4. What you may never do
@@ -56,8 +72,12 @@ or renew.
 Regardless of subscription status:
 
 - **No redistribution of the SDK.** You may not republish, mirror, sublicense or bundle the
-  `@imagineio/configurator-sdk-staging` package, or any part of it, for others to obtain
-  from you rather than from imagine.io.
+  imagine.io Configurator SDK package, or any part of it, for others to obtain from you
+  rather than from imagine.io.
+- **No redistribution of this boilerplate.** You may not publish, mirror, resell or otherwise
+  pass on this repository, or a modified copy of it, as a starter kit, template, boilerplate or
+  development tool for others to build from. Delivering the source of a specific configurator
+  you built to the client you built it for is fine; distributing the starting point is not.
 - **No reverse engineering** of the SDK package, including deobfuscating, decompiling, or
   reconstructing its source, except where that restriction is unenforceable under applicable
   law.
@@ -81,8 +101,14 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL IMAGINE.IO BE LI
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN IT.
 
-The staging backend this boilerplate points at carries **no availability guarantee** and its
-data may be reset without notice. Do not depend on it for anything you care about.
+Availability, uptime, support and data durability for imagine.io's hosted services are
+governed by your subscription agreement, not by this licence. **Nothing in this repository or
+its documentation is a service-level commitment**, and the API keys, endpoints and sample
+catalogs shipped here are for evaluation and development — not a provisioned production
+tenant.
+
+Pre-release and beta builds of the SDK carry no availability or stability guarantee, and their
+interfaces may change between releases.
 
 ## 7. Termination
 
@@ -93,7 +119,3 @@ the material, and delete the sample assets.
 
 Where this licence and a signed imagine.io subscription agreement disagree, the signed
 agreement wins.
-
----
-
-Licensing enquiries: **legal@imagine.io**
