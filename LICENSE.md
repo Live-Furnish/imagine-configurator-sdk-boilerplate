@@ -51,7 +51,8 @@ member of the public can transact against is not.
 In this section, **"a configurator"** means an application you build from this code — not the
 code in this repository itself.
 
-A current paid imagine.io subscription is required before you may:
+A current paid imagine.io **Configurator Platform subscription** (a "Subscription") is
+required before you may:
 
 - Deploy a configurator to a **production or customer-facing** environment.
 - Use a configurator in, or as part of, any offering that is **sold, licensed or monetised**,
@@ -59,20 +60,20 @@ A current paid imagine.io subscription is required before you may:
 - Deliver a configurator to a **third party** — a client, customer or partner — as a product,
   a service, or a component of either.
 
-A subscription **grants those three rights**, for as long as it is current, under the terms of
+A Subscription **grants those three rights**, for as long as it is current, under the terms of
 your subscription agreement. It does not lift section 4, and it does not change the asset
 licence — see section 1 and the asset licence file.
 
-One subscription covers the configurators **you** operate, within the limits of the plan you
+One Subscription covers the configurators **you** operate, within the limits of the plan you
 purchase — how many deployments you may run, and any usage limits, are set by that plan and
 your subscription agreement, not by this licence. If you deliver a configurator to a third
-party who operates it themselves, that party needs their own subscription.
+party who operates it themselves, that party needs their own Subscription.
 
 Delivering a configurator is not the same as delivering **this repository**. Passing on the
 boilerplate itself — as source, a starter kit, a template or a development tool — is never
 permitted; see section 4.
 
-If the subscription lapses, the rights in this section lapse with it: take the deployment down,
+If the Subscription lapses, the rights in this section lapse with it: take the deployment down,
 or renew.
 
 ## 4. What you may never do

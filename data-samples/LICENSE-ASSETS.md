@@ -27,8 +27,8 @@ page, or imported into your organisation's catalog:
 ## The rule
 
 **These assets are licensed for non-commercial use only. A subscription does not change
-that.** Buying an imagine.io subscription unlocks commercial use of the *boilerplate code*
-and the *SDK* (see [../LICENSE.md](../LICENSE.md)); it grants **no** commercial rights over
+that.** Buying an imagine.io Configurator Platform subscription unlocks commercial use of the
+*boilerplate code* and the *SDK* (see [../LICENSE.md](../LICENSE.md)); it grants **no** commercial rights over
 this artwork, and it never will. They are sample data, not stock you have bought.
 
 ## You may
