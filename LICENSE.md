@@ -119,3 +119,12 @@ the material, and delete the sample assets.
 
 Where this licence and a signed imagine.io subscription agreement disagree, the signed
 agreement wins.
+
+Where this licence and the SDK's own licence disagree about the **SDK**, the SDK licence
+wins — this file governs the boilerplate, not the SDK. The SDK restrictions in section 4
+apply **in addition to, and not in place of,** the SDK licence; where both restrict the same
+conduct, the stricter applies.
+
+For the sample 3D assets, the asset licence always prevails over this file, and a
+subscription does not loosen it — see section 1 and
+[`data-samples/LICENSE-ASSETS.md`](data-samples/LICENSE-ASSETS.md).
