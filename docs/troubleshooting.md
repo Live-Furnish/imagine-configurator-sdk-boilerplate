@@ -126,14 +126,22 @@ rendering. Check what actually registered:
 | `ui.registerLayout` | `ui.activeLayout()` | Replaced `'default'` on a system that ships its own named layout |
 | `placement.registerStrategy` | — | Missing both `computeLayout()` and `mode:'scene-owned'` |
 
-### The theme resets itself
+### The theme does nothing, or resets itself
 
-You called `setSystemTheme()` at module top level. The backend theme record lands during boot
-and overwrites anything set before it. Apply it from `scene.onReady()`:
+Two causes, both quiet:
+
+**The colours are in the wrong place.** `ui.applyTheme` reads `config.colors` (or
+`colorTokens`). A bare `{ colors: … }` is read by nothing — the call succeeds and the palette
+never changes:
 
 ```js
-scene.onReady(() => setSystemTheme({ colors: { primary: '#DD5E27' } }));
+ui.applyTheme({ config: { colors: { primary: '#DD5E27' } } });
 ```
+
+**You used `setSystemTheme`.** It is not exported from the package entry, so the import is
+`undefined` and the call throws. `ui.applyTheme` replaces it, and needs no `scene.onReady()`
+wrapper: it marks the theme host-owned, so the backend's record yields to it instead of
+overwriting it during boot.
 
 ### `placement.setStrategy()` changes nothing visible
 

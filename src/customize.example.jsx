@@ -9,15 +9,18 @@
  * Registries live on namespaces (`ui.*`, `scene.*`, `placement.*`, `quote.*`);
  * only lifecycle, events and hooks are flat exports.
  */
-import { ui, scene, placement, quote, parts, setSystemTheme } from '@imagineio/configurator-sdk-staging';
+import { ui, scene, placement, quote, parts } from '@imagineio/configurator-sdk-staging';
 
 // ── Theme ────────────────────────────────────────────────────────────────────
-// Apply the theme from scene.onReady, NOT at module top level: the backend's own
-// theme record lands during boot and overwrites anything set before it.
-scene.onReady(() => {
-  setSystemTheme({
-    colors: { primary: '#DD5E27' },
-  });
+// ui.applyTheme is the HOST's entry point. Calling it marks the theme as
+// host-owned, and from then on the backend's own theme record yields to it — so
+// this can sit at module top level, and does NOT need to wait for
+// scene.onReady(). (A `?theme=` preview in the URL still wins, by design.)
+//
+// Colours go under `config.colors`, with `colorTokens` as the fallback spelling.
+// A bare `{ colors: … }` is read by nothing and silently changes no palette.
+ui.applyTheme({
+  config: { colors: { primary: '#DD5E27' } },
 });
 
 // ── Replace one piece of UI ──────────────────────────────────────────────────

@@ -15,7 +15,7 @@ Registries live on namespaces — `ui.*`, `scene.*`, `placement.*`, `quote.*`. O
 events and hooks are flat exports.
 
 ```js
-import { ui, scene, placement, quote, parts, setSystemTheme }
+import { ui, scene, placement, quote, parts }
   from '@imagineio/configurator-sdk-staging';
 ```
 
@@ -28,14 +28,16 @@ import { ui, scene, placement, quote, parts, setSystemTheme }
 ## Theme
 
 ```js
-scene.onReady(() => {
-  setSystemTheme({ colors: { primary: '#DD5E27' } });
-});
+ui.applyTheme({ config: { colors: { primary: '#DD5E27' } } });
 ```
 
-**Call it from `scene.onReady()`, not at module top level.** The backend theme record lands
-during boot and overwrites anything set before it. This is the single most common
-customization bug.
+**Module top level is the right place — no `scene.onReady()` needed.** `ui.applyTheme` is the
+host's entry point: calling it marks the theme host-owned, and the backend's own theme record
+yields to it from then on. (A `?theme=` preview in the URL still wins, deliberately.)
+
+**Colours go under `config.colors`**, with `colorTokens` as the fallback spelling. A bare
+`{ colors: … }` is read by nothing — the call succeeds and the palette does not change, which
+is the single most common customization bug.
 
 If a theme names a Google font, the SDK fetches it from `fonts.googleapis.com` — allow that
 in your CSP or use a self-hosted family.
@@ -153,7 +155,7 @@ showed `lineItems` / `total`; that shape is gone, and using it renders a blank d
 
 | What you want | How | Inspect with |
 |---|---|---|
-| Brand colours, fonts | `setSystemTheme({ colors })` inside `scene.onReady()` | — |
+| Brand colours, fonts | `ui.applyTheme({ config: { colors } })` before `mount()` | — |
 | Replace one component | `ui.registerComponent(name, Component)` | `ui.listComponentOverrides()`, `ui.hasComponent()` |
 | Add a button | `ui.registerButton({ slot, label, onClick })` | return value (no-op if ignored) |
 | Your own modal | `ui.registerModal(key, Component)` + `parts.Modal` | — |
