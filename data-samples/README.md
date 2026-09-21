@@ -1,40 +1,71 @@
 # Sample catalog data
 
-| Path | What |
-|---|---|
-| [`sectional-sofa-import.zip`](sectional-sofa-import.zip) | Sectional sofa bundle — **placeholder**, real assets not published yet |
-| [`kitchen-import.zip`](kitchen-import.zip) | Kitchen bundle — **placeholder**, real assets not published yet |
-| [`sectional-sofa-import/CATALOG.md`](sectional-sofa-import/CATALOG.md) | Field-by-field schema reference — every sheet, every JSON column |
-| [`LICENSE-ASSETS.md`](LICENSE-ASSETS.md) | Asset licence: **non-commercial, permanently** |
+Two complete, ready-to-import catalogs. They are **hosted, not committed** — a clone stays
+small, and you pull only the bundle you actually want.
 
-## Status
+| Bundle | Download | Size | Catalog | Assets |
+|---|---|---|---|---|
+| **Sectional sofa** — the Anne modular sofa | [sectional-sofa-import.zip](https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip) | 84 MB | 33 components, 12 product variants, 4 option sets, 37 options, 16 materials, 3 presets, 3 constraints, 1 rule | 32 GLB models, 30 material textures, 37 thumbnails |
+| **Kitchen** — cabinets, appliances, worktops | [kitchen-import.zip](https://cnfs.imagine.io/sample-data/kitchen-import.zip) | 198 MB | 319 components, 72 product variants, 15 option sets, 128 options, 15 materials, 74 rules, 20 constraints, 445 anchor points | 635 GLB models, 100 SVG icons, 27 textures, 1 studio HDRI |
 
-Both zips currently contain only a README describing what will land in them. They exist so
-the paths, naming and import flow are settled before the assets arrive — download one today
-and you get no catalog data.
+Start with the **sofa**: less than half the size, and small enough to read end to end in the
+workbook. The kitchen is the one to look at for anchor points, product option sets and rules
+at scale.
 
-`CATALOG.md` is the exception: it documents the **real** sectional-sofa workbook, verified
-sheet by sheet, so the schema is readable now even though the bundle is not downloadable.
-
-Until the real assets ship, build a catalog by hand in the admin panel:
-materials → components → product graphs and variants → option sets and options → a
-configurable system.
-
-## When a bundle lands
+## Get one
 
 ```bash
 cd data-samples
+curl -O https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip
 unzip sectional-sofa-import.zip
 ```
 
-**Extract it first.** Each zip contains a wrapping folder (`sectional-sofa-import/`), so
-uploading the zip itself to the importer does not work — `catalog.xlsx` has to sit at the
-root of whatever you hand it. Drop the extracted **folder** on the folder picker instead.
+PowerShell:
 
-Full walkthrough: **[../docs/import-sample-catalog.md](../docs/import-sample-catalog.md)**.
+```powershell
+cd data-samples
+Invoke-WebRequest https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip -OutFile sectional-sofa-import.zip
+Expand-Archive sectional-sofa-import.zip -DestinationPath .
+```
 
-> Extracting a real bundle here unpacks ~88 MB of models and textures. Keep those out of git
-> — they belong in the zip, not loose in the tree.
+Swap `sectional-sofa-import` for `kitchen-import` for the other one. Downloads and extracted
+folders under `data-samples/` are gitignored, so they will not end up in a commit.
+
+## Extract before you import
+
+**Not optional.** Each zip holds a single wrapping folder, so `catalog.xlsx` is not at the
+archive root and the importer cannot read the zip as-is:
+
+```
+sectional-sofa-import/
+├── catalog.xlsx              ← the import workbook, 14 sheets
+├── README.md
+├── models/                   ← 32 component GLBs (incl. models/CUSHIONS/)
+├── materials/<name>/         ← texture maps, one folder per material
+└── thumbnails/               ← 37 module thumbnails
+```
+
+```
+kitchen-import/
+├── catalog.xlsx              ← 16 sheets, including Anchor Point and Product Option Set
+├── README.md
+├── models/                   ← 635 GLBs across appliances/, cabinets/, backsplash/, …
+├── materials/<name>/         ← granite, stone, terrazzo, wood_01…wood_07
+└── lightsettings/            ← studio HDRI
+```
+
+Give the importer the extracted **folder** (admin panel → **Import Catalog** → *select
+folder*). It finds `catalog.xlsx` and resolves the `models/…` and `materials/…` paths
+relative to it.
+
+Full walkthrough, including the publish step everyone misses:
+**[../docs/import-sample-catalog.md](../docs/import-sample-catalog.md)**.
+
+## Also here
+
+| Path | What |
+|---|---|
+| [`LICENSE-ASSETS.md`](LICENSE-ASSETS.md) | Asset licence: **non-commercial, permanently** |
 
 ## Licence
 

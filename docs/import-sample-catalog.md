@@ -1,9 +1,9 @@
 # Importing the sample catalog
 
-`sectional-sofa-import.zip` will be a complete, ready-to-import catalog for the **Anne modular
-sofa** — workbook, 51 models, textures and thumbnails. Importing it gives you a populated
-configurator in a few minutes, and a worked example of the import format to model your own
-data on.
+`sectional-sofa-import.zip` is a complete, ready-to-import catalog for the **Anne modular
+sofa** — a 14-sheet workbook, 32 models, 30 material textures and 37 thumbnails. Importing it
+gives you a populated configurator in a few minutes, and a worked example of the import format
+to model your own data on.
 
 You need an organisation and an owner login first — see [step 1 of the README](../README.md#1-sign-up).
 
@@ -12,25 +12,34 @@ You need an organisation and an owner login first — see [step 1 of the README]
 
 ---
 
-> **The bundles are placeholders right now.** `data-samples/sectional-sofa-import.zip` and
-> `data-samples/kitchen-import.zip` are committed so the paths and flow are settled, but they
-> contain only a README — no catalog data yet. Everything below is the procedure for when the
-> real assets land; the counts in "What lands in your catalog" are read from the real
-> workbook. Until then, build a catalog by hand in the admin panel.
+## 1. Download the bundle
 
-## 1. Find the bundle
+The bundles are **hosted, not committed**, so a clone stays small and you pull only the one
+you want:
 
-It ships **in this repo** — cloning gets you everything, no separate download:
+| Bundle | Link | Size |
+|---|---|---|
+| Sectional sofa | [`sectional-sofa-import.zip`](https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip) | 84 MB |
+| Kitchen | [`kitchen-import.zip`](https://cnfs.imagine.io/sample-data/kitchen-import.zip) | 198 MB |
 
+```bash
+cd data-samples
+curl -O https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip
 ```
-data-samples/sectional-sofa-import.zip      (~87 MB once published)
-data-samples/kitchen-import.zip             (~115 MB once published)
+
+On Windows PowerShell:
+
+```powershell
+cd data-samples
+Invoke-WebRequest https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip -OutFile sectional-sofa-import.zip
 ```
+
+`data-samples/` ignores both the zips and the extracted folders, so nothing here can slip into
+a commit.
 
 ## 2. Extract it
 
 ```bash
-cd data-samples
 unzip sectional-sofa-import.zip
 ```
 
@@ -38,13 +47,16 @@ You get a single `sectional-sofa-import/` folder:
 
 ```
 sectional-sofa-import/
-├── catalog.xlsx              ← the import workbook, 13 sheets
-├── models/                   ← 51 component GLBs
-├── textures/                 ← 221 upholstery + leg-finish maps
-├── assets/thumbnails/…       ← 20 module thumbnails
-├── white_studio_02_2k.hdr    ← studio HDRI used by the system environment
+├── catalog.xlsx              ← the import workbook, 14 sheets
+├── models/                   ← 32 component GLBs (5 of them under models/CUSHIONS/)
+├── materials/<name>/         ← texture maps, one folder per material (30 files)
+├── thumbnails/               ← 37 module thumbnails
 └── README.md                 ← generator notes (see the caveat below)
 ```
+
+The kitchen bundle has the same shape, at a different scale: 635 GLBs under `models/`
+(`appliances/`, `cabinets/`, `backsplash/`, …), material folders, and a studio HDRI in
+`lightsettings/`.
 
 **Extracting is not an optional convenience — do not upload the zip as-is.** Its root is the
 wrapping `sectional-sofa-import/` folder rather than `catalog.xlsx`, which is not the shape the zip
@@ -58,7 +70,7 @@ itself.
 1. Admin panel → **Catalog Import** (`/catalog-import`).
 2. Step 1: choose **select folder** and pick the extracted `sectional-sofa-import` folder, or drag the
    whole folder onto the picker. The wizard finds `catalog.xlsx` and resolves the
-   `models/…`, `textures/…` and `assets/…` paths relative to it.
+   `models/…` and `materials/…` paths relative to it.
 3. Run the **dry-run validation**. It reports unresolved file references, duplicate names and
    malformed JSON columns without writing anything. This bundle is clean: all 103 file
    references in the workbook resolve against the files in the folder.
@@ -91,31 +103,35 @@ Counts below are read from `catalog.xlsx` itself, sheet by sheet.
 
 | Sheet | Rows | What it creates |
 |---|---:|---|
-| Tag | 2 | `anne`, `sofa` |
-| Product Category | 1 | Sofas |
+| Tag | 0 | — |
+| Product Category | 0 | — |
 | Component Group | 3 | Arms, Legs, Cushions |
-| Option Set | 7 | Sofa Layouts, Upholstery Fabric, Leg Finish, Arm Style, Leg Style, Modules, Cushions |
-| Material | 19 | 15 upholstery fabrics + 4 leg finishes, each with a diffuse texture |
-| Component | 51 | 20 modules (ungrouped) + 6 arms + 6 legs + 19 cushions |
-| Option | 41 | 2 layouts, 6 arms, 6 legs, 14 modules, 13 cushions — 25 of them carry `swaps` |
-| Product Graph | 1 | `Anne` (category Sofas, `placement_type=freestanding`) |
-| Product Variant | 15 | One default variant per module, each linked to its module component |
-| Configuration Preset | 2 | Oppsett F (L-shaped, left corner), Oppsett H (L-shaped, right corner) |
-| Configurable System | 1 | **Anne Modular Sofa** — 6 option sets attached, default preset Oppsett F |
-| Rule | 7 | 3 arm-visibility + 4 leg hide/rotate rules (custom DSL) |
-| Constraint | 4 | `max_count` caps (≤2 large/small corners, ≤2 large/small chaises per scene) |
+| Option Set | 4 | The selectable sets — layouts, upholstery, legs, cushions |
+| System Option Set | 4 | Each of those four bound to the system |
+| Material | 16 | Upholstery fabrics and leg finishes, each with its texture folder under `materials/` |
+| Component | 33 | Modules, arms, legs and cushions — one per GLB under `models/` |
+| Option | 37 | The choices inside the four option sets; many carry a `swaps` array |
+| Product Graph | 1 | `Anne` |
+| Product Variant | 12 | One default variant per module, each linked to its module component |
+| Configuration Preset | 3 | Ready-made layouts to start from |
+| Configurable System | 1 | **Anne Modular Sofa** |
+| Rule | 1 | A visibility rule in the custom DSL |
+| Constraint | 3 | `max_count` caps on how many of a module may be placed |
 
-Field-by-field notes, including every JSON column shape:
-**[`../data-samples/sectional-sofa-import/CATALOG.md`](../data-samples/sectional-sofa-import/CATALOG.md)**.
+The kitchen workbook has 16 sheets and the same columns, plus **Anchor Point** (445 rows) and
+**Product Option Set** (28): 319 components, 72 variants, 15 option sets, 128 options, 74
+rules, 20 constraints.
 
-### Two things worth knowing before you go looking for them
+The `README.md` inside the bundle covers the column formats — with the caveat below.
 
-- **The Cushions option set is not attached to the system.** The Configurable System row
-  lists six of the seven sets; Cushions is imported but unbound. Attach it in the Option Sets
-  tab of the system if you want cushions selectable in the UI.
-- **Only 19 of the 221 texture files are referenced.** The bundle ships the full upholstery
-  library, but the workbook wires up 15 fabrics and 4 leg finishes. The rest are there for
-  you to add Material rows against — a ready-made exercise in extending a catalog.
+### Worth knowing before you go looking
+
+- **Check which option sets are bound to the system.** A set can be imported and still be
+  unattached, in which case it never appears in the UI. The System Option Set sheet is what
+  binds them; the Option Sets tab of the system is where you fix it.
+- **Not every shipped texture is wired up.** The bundles ship whole material folders, and the
+  workbook references a subset. The rest are there for you to add Material rows against — a
+  ready-made exercise in extending a catalog.
 
 ### About the README inside the bundle
 

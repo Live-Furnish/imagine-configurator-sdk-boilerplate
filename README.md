@@ -71,12 +71,15 @@ built-in demo data: a valid key pointed at an empty org gives you an empty scene
 The fastest path is to import a sample bundle — five steps, a few minutes, and you get a
 fully-populated configurator instead of an empty scene.
 
-**1. Extract the bundle.** Not optional: each zip contains a wrapping folder, so
-`catalog.xlsx` is *not* at the archive root and the importer cannot read the zip as-is.
+**1. Download and extract a bundle.** The catalogs are hosted, not committed — the clone
+stays small and you pull only what you want. Extracting is not optional: each zip contains a
+wrapping folder, so `catalog.xlsx` is *not* at the archive root and the importer cannot read
+the zip as-is.
 
 ```bash
 cd data-samples
-unzip sectional-sofa-import.zip      # or kitchen-import.zip
+curl -O https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip
+unzip sectional-sofa-import.zip      # or kitchen-import.zip, 198 MB
 ```
 
 **2. Open the importer.** Admin panel → **Import Catalog** (`/catalog-import`).
@@ -330,27 +333,22 @@ function, with signatures and worked examples:
 
 ## Sample catalogs
 
-**`sectional-sofa-import.zip`** — the Anne modular sofa. What the bundle will contain:
+Two complete catalogs, **hosted rather than committed**, so cloning this repo does not drag
+280 MB of models behind it:
 
-| | |
-|---|---|
-| **Catalog** | 51 components, 15 product variants, 7 option sets, 19 materials, 41 options, 2 layout presets, 7 rules, 4 constraints |
-| **Assets** | 51 GLB models, 221 textures, 20 thumbnails, 1 studio HDRI |
-| **Size** | ~87 MB zipped (295 files) |
-| **Status** | **Not published yet** — [`data-samples/sectional-sofa-import.zip`](data-samples/sectional-sofa-import.zip) is a placeholder |
+| Bundle | Download | Size | Catalog | Assets |
+|---|---|---|---|---|
+| **Sectional sofa** — the Anne modular sofa | [sectional-sofa-import.zip](https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip) | 84 MB | 33 components, 12 variants, 4 option sets, 37 options, 16 materials, 3 presets, 3 constraints, 1 rule | 32 GLB, 30 textures, 37 thumbnails |
+| **Kitchen** — cabinets, appliances, worktops | [kitchen-import.zip](https://cnfs.imagine.io/sample-data/kitchen-import.zip) | 198 MB | 319 components, 72 variants, 15 option sets, 128 options, 15 materials, 74 rules, 20 constraints, 445 anchor points | 635 GLB, 100 SVG, 27 textures, 1 HDRI |
 
-A second bundle, **kitchen** (327 components, 76 variants, 15 option sets), is also on the
-way: [`data-samples/kitchen-import.zip`](data-samples/kitchen-import.zip), likewise a
-placeholder for now.
+Start with the sofa — half the size, and its 14-sheet workbook is small enough to read end to
+end. The kitchen shows anchor points, product option sets and rules at scale.
 
-Both archives currently hold only a README describing what will land in them. Until the real
-assets ship, build your catalog in the admin panel by hand — see step 2 above.
-
-The import mechanics will not change when they do: extract the zip, then drop the **extracted
-folder** on the importer (the wrapping folder inside means the zip itself cannot be uploaded).
+Download into `data-samples/` (both the zips and the extracted folders are gitignored), then
+drop the **extracted folder** on the importer — the wrapping folder inside means the zip
+itself cannot be uploaded.
 
 Full walkthrough: [docs/import-sample-catalog.md](docs/import-sample-catalog.md).
-Field-by-field schema notes: [data-samples/sectional-sofa-import/CATALOG.md](data-samples/sectional-sofa-import/CATALOG.md).
 
 ## Requirements
 
