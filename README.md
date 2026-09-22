@@ -16,15 +16,14 @@ mount('#root', { systemId: Number(import.meta.env.VITE_SYSTEM_ID) });
 
 Then change anything about how it looks and behaves — theme, layout, individual components,
 your own buttons, modals, 3D renderers and quote templates, or drive the whole thing from
-your own page. [`src/customize.example.jsx`](src/customize.example.jsx)
-is a runnable cookbook of every seam; see [Making it yours](#making-it-yours).
+your own page. See [Making it yours](#making-it-yours).
 
 Everything else here gets you to that call: the working app, and the steps from an empty
 account to a configurator running on your own data.
 
 📚 Beyond this walkthrough: the **[SDK reference](https://configurator-platform.imagine.io/sdk/index.html)**
 (every public function, embedding, the e-commerce bridge) and the
-**[admin guide](https://configurator-platform.imagine.io/admin-guide/)**, both at
+**[admin guide](https://configurator-platform.imagine.io/admin-guide/index.html)**, both at
 [configurator-platform.imagine.io](https://configurator-platform.imagine.io/).
 
 > **Licence:** non-commercial use only until you hold a paid subscription, and the sample
@@ -323,23 +322,33 @@ export default defineConfig({ plugins: [react(), imagineConfigurator()] });
 
 ## Making it yours
 
-[src/customize.example.jsx](src/customize.example.jsx) is a runnable cookbook of the
-registries — import it from `main.jsx` (before `mount()`) to watch each one take effect:
+Everything visible is replaceable through a registry: you register a replacement, the SDK
+renders yours instead of its own. None of it needs an SDK release.
 
-| What you want | How |
+**[Customise the UI](https://configurator-platform.imagine.io/sdk/index.html#customize)** is
+the section to read first — theme tokens, plain-CSS styling, component overrides, slots,
+layouts, the quote PDF and the ~50 components in `parts.*`.
+
+Then **[Guides](https://configurator-platform.imagine.io/sdk/index.html#guides)** takes each
+one end to end, with runnable code:
+
+| Guide | What it covers |
 |---|---|
-| Brand colours, fonts | `ui.applyTheme({ config: { colors } })` before `mount()` |
-| Replace one component | `ui.registerComponent(name, Component)` |
-| Add a button | `ui.registerButton({ slot, label, onClick })` |
-| Your own modal | `ui.registerModal(key, Component)` + `parts.Modal` |
-| Whole layout shell | `ui.registerLayout('default', Shell)` |
-| Custom 3D for a part | `scene.registerRenderer(componentName, Renderer)` |
-| Custom placement logic | `placement.registerStrategy({ id, computeLayout })` |
-| Your own quote / PDF | `quote.registerTemplate(key, Doc)`, `quote.registerPdf(key, builder)` |
+| [Customize Theme & Layout](https://configurator-platform.imagine.io/sdk/index.html#howto-theme-layout) | Full-screen scene, one token, a whole new theme, your own shell and option panel |
+| [Override Button Functionality](https://configurator-platform.imagine.io/sdk/index.html#howto-buttons) | Add to or replace what the built-in buttons do |
+| [Add a Custom Button](https://configurator-platform.imagine.io/sdk/index.html#howto-custom-button) | Your own button, wired to the scene or to your own UI |
+| [Add Custom 3D Functionality](https://configurator-platform.imagine.io/sdk/index.html#howto-3d) | Move objects, load and animate your own |
+| [Customize or Create Quote Templates](https://configurator-platform.imagine.io/sdk/index.html#howto-quote) | Modify the shipped template, or build your own |
+| [Integrate with E-Commerce Platforms](https://configurator-platform.imagine.io/sdk/index.html#howto-ecom) | Drive options from your store, keep the cart in sync |
+| [Add Custom Popups](https://configurator-platform.imagine.io/sdk/index.html#howto-popup) | Your own modal, opened by a button or by a rule |
+| [Integrate Custom APIs](https://configurator-platform.imagine.io/sdk/index.html#howto-api) | Send entries out, gate the engine on your API, pull data at boot |
+| [Work with Custom Rules and Constraints](https://configurator-platform.imagine.io/sdk/index.html#howto-rules) | Where rules and constraints live, and writing one of each |
+| [Work with Placement Logic](https://configurator-platform.imagine.io/sdk/index.html#howto-placement) | Modular runs, grids, wall layouts and their anchors |
+| [Customize the Loading Screen](https://configurator-platform.imagine.io/sdk/index.html#howto-loader) | Restyle ours, or replace it |
+| [Adding Custom Dimension Code](https://configurator-platform.imagine.io/sdk/index.html#howto-dims) | Imperial units, your own display, dimensions outside the canvas |
 
-Full notes and the trap in each: **[docs/customizing.md](docs/customizing.md)**. Every public
-function, with signatures and worked examples:
-**[SDK reference](https://configurator-platform.imagine.io/sdk/index.html)**.
+Every public function, with signatures and worked examples:
+**[API reference](https://configurator-platform.imagine.io/sdk/index.html#fullref)**.
 
 ## Sample catalogs
 

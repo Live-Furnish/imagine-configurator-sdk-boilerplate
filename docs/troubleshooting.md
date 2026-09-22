@@ -3,20 +3,25 @@
 Symptoms in the order you are likely to hit them: install → boot → empty scene → import →
 runtime.
 
+This page covers what you hit *in this boilerplate*. The SDK's own
+**[Troubleshooting](https://configurator-platform.imagine.io/sdk/index.html#troubleshooting)**
+section covers the runtime in more depth — session-token refusals field by field, the chat
+runtime, and the `[sdk]` console lines that name the exact URL or registration that failed.
+
 ---
 
 ## Install
 
 ### The SDK behaves like an older build, or a documented export is missing
 
-You probably installed without the `@beta` tag. This is the staging package; current builds
-publish under the `beta` dist-tag, and `latest` is **not** kept in step — it can sit several
-betas behind. Installing without the tag does not fail; it silently gives you the older build.
-Compare `npm ls @imagineio/configurator-sdk-staging` against
-`npm view @imagineio/configurator-sdk-staging dist-tags`, then reinstall:
+You probably installed without the `@beta` tag. Current builds publish under the `beta`
+dist-tag, and `latest` is **not** kept in step — it can sit several betas behind. Installing
+without the tag does not fail; it silently gives you the older build. Compare
+`npm ls @imagineio/configurator-sdk` against `npm view @imagineio/configurator-sdk dist-tags`,
+then reinstall:
 
 ```bash
-npm install @imagineio/configurator-sdk-staging@beta
+npm install @imagineio/configurator-sdk@beta
 ```
 
 ### `ERESOLVE could not resolve` around `react` / `@react-three/fiber`
@@ -34,13 +39,22 @@ error — you just get wrong autocomplete everywhere.
 
 `--legacy-peer-deps` will silence this and leave you with a broken 3D scene. Don't.
 
+### You edited or copied a file into `node_modules` and nothing changed
+
+Vite serves a pre-bundled copy of the package from `node_modules/.vite/deps`, and that cache
+is keyed on your lockfile and config — **not on file contents** — so a hand-copied file is
+never seen. Delete `node_modules/.vite` and restart, or start once with `npx vite --force`.
+A normal `npm install` of a new version changes the lockfile and invalidates the cache by
+itself.
+
 ---
 
 ## Boot
 
 ### The page says "Setup needed"
 
-`VITE_API_KEY` or `VITE_SYSTEM_ID` is missing from `.env.local`. Two common causes:
+`VITE_API_KEY` or `VITE_SYSTEM_ID` is missing from `.env.local` — this is the hint screen
+`src/main.jsx` renders, not an SDK error. Two common causes:
 
 - You copied `.env.example` but never replaced `ck_replace_me`.
 - You edited `.env.local` while the dev server was running. **Vite reads env files at
@@ -57,7 +71,16 @@ around it. Create a read & write key, or edit the existing key's scope in the ad
 
 Wrong or revoked key. Keys are shown in full exactly once, at creation; if you did not copy
 it, create a new one (admin panel → **Settings → API Keys**). A key only ever sees its own
-organisation data.
+organisation data. The console line names which of the three it is: missing, invalid, or
+revoked.
+
+Once you move to server-minted tokens
+([Going to production](../README.md#going-to-production-mint-a-token-never-ship-the-key)), a
+persistent 401 or 403 points at your token route rather than your key — the SDK re-asks the
+route once and replays, so a refusal that survives that is the route answering wrongly. Each
+refusal carries a detail string (`Session token has expired.`, `403 origin mismatch`, …); they
+are listed with their fixes in the
+[SDK troubleshooting table](https://configurator-platform.imagine.io/sdk/index.html#troubleshooting).
 
 ### Blank canvas, `instanceof` errors from `three`
 
@@ -66,9 +89,12 @@ and serves the SDK static assets (Draco decoders, fonts):
 
 ```js
 // vite.config.js
-import imagineConfigurator from '@imagineio/configurator-sdk-staging/vite';
+import imagineConfigurator from '@imagineio/configurator-sdk/vite';
 export default defineConfig({ plugins: [react(), imagineConfigurator()] });
 ```
+
+The same plugin is what stops `404`s on `/assets/draco/…`, which show up as models that never
+appear.
 
 ### The configurator renders, but with no height
 
@@ -76,6 +102,22 @@ The configurator fills its mount element. Give it a real one:
 
 ```css
 html, body, #root { height: 100%; margin: 0; }
+```
+
+### A blank page for a second or two before the SDK's loading screen
+
+That gap is your own bundle: nothing can paint until the SDK's JS has downloaded and parsed,
+and `ui.setLoading()` cannot help because there is no tree to render it into yet. Paint your
+own placeholder in `index.html` and remove it once the scene exists. It has to be a
+**sibling** of the mount element — React clears that element's children on its first commit:
+
+```html
+<div id="boot-splash">Loading…</div>
+<div id="root"></div>
+```
+
+```js
+scene.onReady(() => document.getElementById('boot-splash')?.remove());
 ```
 
 ---
@@ -113,39 +155,59 @@ The dry-run writes nothing — run it every time and read the report before impo
 
 ## Runtime
 
-### Custom component / renderer / strategy silently does nothing
+### A custom component / renderer / strategy silently does nothing
 
 Most registries fail silently by design — a wrong key just means the built-in keeps
 rendering. Check what actually registered:
 
 | Registry | Inspect with | Usual mistake |
 |---|---|---|
-| `ui.registerComponent` | `ui.listComponentOverrides()`, `ui.hasComponent(name)` | Wrong internal component name |
-| `scene.registerRenderer` | `scene.listRenderers()` | Used the **slot** name; the key is the lowercased **component** name |
+| `ui.registerComponent` | `ui.listComponentOverrides()` | Wrong internal component name |
 | `ui.registerButton` | return value is a no-op unregister if ignored | Missing `slot`, or missing both `label` and `icon` |
-| `ui.registerLayout` | `ui.activeLayout()` | Replaced `'default'` on a system that ships its own named layout |
-| `placement.registerStrategy` | — | Missing both `computeLayout()` and `mode:'scene-owned'` |
+| `ui.registerLayout` | `ui.listLayouts()`, `ui.activeLayout()` | Replaced `'default'` on a system whose backend selected another shell — register against `ui.activeLayout() ?? 'default'` |
+| `ui.registerModal` | `ui.listModals()` | Opening a key you never registered; unknown keys open nothing |
+| `scene.registerRenderer` | `scene.listRenderers()` | Wrong key. It is the component's **slot name**, as `scene.listComponents()` reports it (`door_left`, `seat_3`) — case-insensitive, and the catalog component's own kind or name also matches, but the slot is the stable one |
+| `placement.registerStrategy` | `placement.listStrategies()` | The object needs an `id` and a `computeLayout` (`computeTargets` is optional) |
 
-### The theme does nothing, or resets itself
+In a **custom layout** the cause is usually different: `ui.registerSlot` and `ui.registerModal`
+content renders into `parts.SlotHost` and `parts.ModalHost`. A shell that does not mount them
+silently drops every such registration.
 
-Two causes, both quiet:
+### The theme does nothing, or looks half-applied
 
-**The colours are in the wrong place.** `ui.applyTheme` reads `config.colors` (or
-`colorTokens`). A bare `{ colors: … }` is read by nothing — the call succeeds and the palette
-never changes:
+**Cards and dialogs stay white.** You set `colors.background` without `colors.surface` —
+`surface` is the raised layer that cards, dialogs and panels read, and it is the token people
+miss.
+
+**Nothing changes at all.** Colours go under `config.colors`:
 
 ```js
-ui.applyTheme({ config: { colors: { primary: '#DD5E27' } } });
+ui.applyTheme({ config: { colors: { primary: '#DD5E27', surface: '#fdfaf2' } } });
 ```
 
-**You used `setSystemTheme`.** It is not exported from the package entry, so the import is
-`undefined` and the call throws. `ui.applyTheme` replaces it, and needs no `scene.onReady()`
-wrapper: it marks the theme host-owned, so the backend's record yields to it instead of
-overwriting it during boot.
+`ui.applyTheme()` needs no `scene.onReady()` wrapper — it marks the theme host-owned, so the
+backend's record yields to it instead of overwriting it during boot. The one thing that still
+outranks your call is a `?theme=<id>` URL preview, on purpose.
+
+Every token and what it drives:
+[Theme tokens](https://configurator-platform.imagine.io/sdk/index.html#cz-theme).
 
 ### `placement.setStrategy()` changes nothing visible
 
-It notifies nobody. The change stays invisible until something repaints the scene.
+Two causes. A backend-shipped `system.placementStrategy` **wins over** the call, so a system
+that ships its own strategy ignores yours. And the call notifies nobody, so even when it does
+apply, the change stays invisible until something repaints the scene.
+
+### Placement tiles never appear
+
+Two requirements, and the second catches most people: a product has to be armed
+(`products.anchor(…)`, or a palette click), **and** a tile renderer has to be registered with
+`placement.registerTargetRenderer` — the SDK ships no tile of its own.
+
+### Pieces overlap or fly apart in a custom strategy
+
+Units. `ctx.getDims()` is **metres** while catalog width is **inches**, and `computeLayout`
+rotation is in **radians** while `computeTargets` is in **degrees**.
 
 ### Quote template renders blank
 
@@ -154,19 +216,7 @@ The builder receives the real shape from `quote.read()` — `{ lines, totals, �
 
 ---
 
-## Content Security Policy
-
-Two things load at runtime from Google rather than from the package:
-
-| What | Origin | Directive | Override |
-|---|---|---|---|
-| AR viewer script | `https://ajax.googleapis.com` | `script-src` | `VITE_MODEL_VIEWER_SRC` to self-host |
-| Theme fonts | `https://fonts.googleapis.com`, `https://fonts.gstatic.com` | `style-src`, `font-src` | Only loaded when a theme names a Google font |
-
-Under a strict CSP, allow those or point the override at your own origin.
-
----
-
-Still stuck? Include your SDK version (`npm ls @imagineio/configurator-sdk-staging`), the
-system id, and whether the layout is published — those three answer most questions
-immediately.
+Still stuck? Include your SDK version (`npm ls @imagineio/configurator-sdk`), the system id,
+and whether the layout is published — those three answer most questions immediately. For a
+runtime failure, send the console output including any `[sdk]` lines: they name the exact URL
+or registration that failed.
