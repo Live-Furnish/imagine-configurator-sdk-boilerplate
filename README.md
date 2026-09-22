@@ -71,22 +71,32 @@ built-in demo data: a valid key pointed at an empty org gives you an empty scene
 The fastest path is to import a sample bundle — five steps, a few minutes, and you get a
 fully-populated configurator instead of an empty scene.
 
-**1. Download and extract a bundle.** The catalogs are hosted, not committed — the clone
-stays small and you pull only what you want. Extracting is not optional: each zip contains a
-wrapping folder, so `catalog.xlsx` is *not* at the archive root and the importer cannot read
-the zip as-is.
+**1. Download and extract a bundle.** There are two — the **sectional sofa** (84 MB) and the
+**kitchen** (198 MB); either one gets you a working configurator, so pick one and use it for
+the rest of this section. Start with the sofa if you have no preference: it is a quarter of
+the size and its workbook is small enough to read end to end. The catalogs are hosted, not
+committed — the clone stays small and you pull only what you want. Extracting is not
+optional: each zip contains a wrapping folder, so `catalog.xlsx` is *not* at the archive root
+and the importer cannot read the zip as-is.
 
 ```bash
 cd data-samples
+
+# Sectional sofa — the Anne modular sofa, 84 MB
 curl -O https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip
-unzip sectional-sofa-import.zip      # or kitchen-import.zip, 198 MB
+unzip sectional-sofa-import.zip
+
+# …or the kitchen — cabinets, appliances, worktops, 198 MB
+curl -O https://cnfs.imagine.io/sample-data/kitchen-import.zip
+unzip kitchen-import.zip
 ```
 
 **2. Open the importer.** Admin panel → **Import Catalog** (`/catalog-import`).
 
 **3. Give it the folder, not the zip.** Choose **select folder** and pick the extracted
-`sectional-sofa-import` folder (or drag it onto the picker). The wizard finds `catalog.xlsx`
-and resolves the `models/…`, `textures/…` and `assets/…` paths relative to it.
+`sectional-sofa-import` (or `kitchen-import`) folder — or drag it onto the picker. The wizard
+finds `catalog.xlsx` and resolves the `models/…`, `textures/…` and `assets/…` paths relative
+to it.
 
 **4. Import.** Run the import.
 
