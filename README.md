@@ -105,7 +105,7 @@ so find it yourself:
 
 - Sidebar → **Scenes** → **Configurable Systems**
 - Open the system the import created (its name comes from `catalog.xlsx`)
-- **Layouts** tab → **Publish as v1**
+- **Layouts** tab → **Publish**
 
 Until you do, the configurator has nothing live to load and mounts into an empty
 scene — with no error, because nothing failed.
