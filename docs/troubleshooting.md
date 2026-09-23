@@ -14,14 +14,13 @@ runtime, and the `[sdk]` console lines that name the exact URL or registration t
 
 ### The SDK behaves like an older build, or a documented export is missing
 
-You probably installed without the `@beta` tag. Current builds publish under the `beta`
-dist-tag, and `latest` is **not** kept in step — it can sit several betas behind. Installing
-without the tag does not fail; it silently gives you the older build. Compare
-`npm ls @imagineio/configurator-sdk` against `npm view @imagineio/configurator-sdk dist-tags`,
+Your install is stale — the version on disk is behind the current release. A stale install
+does not fail; it silently gives you the older build. Compare
+`npm ls @imagineio/configurator-sdk` against `npm view @imagineio/configurator-sdk version`,
 then reinstall:
 
 ```bash
-npm install @imagineio/configurator-sdk@beta
+npm install @imagineio/configurator-sdk@latest
 ```
 
 ### `ERESOLVE could not resolve` around `react` / `@react-three/fiber`
