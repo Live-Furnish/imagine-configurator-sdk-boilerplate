@@ -326,16 +326,13 @@ If you would rather start from your own project than this one:
 ```bash
 npm create vite@latest my-configurator -- --template react --yes
 cd my-configurator
-npm install @imagineio/configurator-sdk@beta react@^18.2 react-dom@^18.2
+npm install @imagineio/configurator-sdk react@^18.2 react-dom@^18.2
 npm install -D @types/react@^18.3 @types/react-dom@^18.3
 ```
 
 Three details that are easy to get wrong, and what each one costs you:
 
-- **Always install with `@beta`.** Current builds publish under the `beta` dist-tag, and
-  `latest` is **not** kept in step — it lags several builds behind, so installing without
-  the tag does not fail, it silently gives you an older build. Confirm the two tags differ
-  before you trust a version: `npm view @imagineio/configurator-sdk dist-tags`.
+- **Always install with `@latest`.** Current builds publish under the `latest` dist-tag
 - **Pin React 18.** A fresh Vite template scaffolds React 19, which the SDK's 3D stack does
   not support (`@react-three/fiber@8` needs React 18). Skip the pin and the install dies
   with `ERESOLVE`.
@@ -426,7 +423,7 @@ environment.
 | Imported the sample, still empty | The layout is still a draft — publish it from the system's **Layouts** tab |
 | Importer can't find `catalog.xlsx` | You uploaded the zip instead of the extracted folder |
 | `ERESOLVE` on install | React 19 in the project — pin React 18 (see above) |
-| SDK behaves like an older build | You installed without `@beta` and got `latest`, which lags behind |
+| SDK behaves like an older build | You installed without `@latest`
 | Blank canvas, `three` `instanceof` errors | Two copies of `three` — add the `imagineConfigurator()` Vite plugin |
 | Your API key is visible in the deployed JS | Expected — `VITE_` values are inlined at build. Switch to a server-minted token ([Going to production](#going-to-production-mint-a-token-never-ship-the-key)) |
 | `getToken` route answers, but requests still 401 | The token was minted for a different `origin` or `system_id` than the page is using |
