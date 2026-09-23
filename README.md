@@ -46,6 +46,11 @@ npm run dev
 Open http://localhost:5173. If the key is missing the page says so instead of rendering an
 empty canvas.
 
+![The "Setup needed" screen shown when the API key or system id is missing](docs/images/02-setup-needed.png)
+
+<sub>No key or no system id: you get this, not a blank canvas. First row of the troubleshooting table.</sub>
+
+
 Four things must be true before anything appears: you have an account, your org has a
 catalog, you have an API key, and you know your system id. The rest of this page is those
 four things in order.
@@ -62,6 +67,11 @@ Everything you create below — products,
 materials, options, systems — belongs to that org, and an API key only ever sees its own
 org's data.
 
+![The sign-up form: organisation name, email, password](docs/images/03-signup.png)
+
+<sub>Sign-up at admin-configurator.imagine.io. The first account becomes the org owner.</sub>
+
+
 ## 2. Build (or import) a catalog
 
 **The configurator renders nothing until your organisation has a catalog.** There is no
@@ -72,8 +82,7 @@ fully-populated configurator instead of an empty scene.
 
 **1. Download and extract a bundle.** There are two — the **sectional sofa** (84 MB) and the
 **kitchen** (198 MB); either one gets you a working configurator, so pick one and use it for
-the rest of this section. Start with the sofa if you have no preference: it is a quarter of
-the size and its workbook is small enough to read end to end. The catalogs are hosted, not
+the rest of this section. The catalogs are hosted, not
 committed — the clone stays small and you pull only what you want. Extracting is not
 optional: each zip contains a wrapping folder, so `catalog.xlsx` is *not* at the archive root
 and the importer cannot read the zip as-is.
@@ -92,12 +101,27 @@ unzip kitchen-import.zip
 
 **2. Open the importer.** Admin panel → **Import Catalog** (`/catalog-import`).
 
+![The Import Catalog wizard on step 1](docs/images/04-import-wizard.png)
+<sub>The wizard runs in four steps: get template → upload → review → import.</sub>
+
+
 **3. Give it the folder, not the zip.** Choose **select folder** and pick the extracted
 `sectional-sofa-import` (or `kitchen-import`) folder — or drag it onto the picker. The wizard
 finds `catalog.xlsx` and resolves the `models/…`, `textures/…` and `assets/…` paths relative
 to it.
 
-**4. Import.** Run the import.
+![The folder picker with the extracted sample folder selected](docs/images/05-import-select-folder.png)
+<sub>Pick the extracted folder — not the .zip. The wizard reads catalog.xlsx from inside it.</sub>
+
+
+**4. Import.** Review what the dry run found, then run the import.
+
+![The review step listing validation errors and warnings](docs/images/06-import-review.png)
+<sub>Errors block the import; warnings do not. Fix errors in the workbook and re-upload.</sub>
+
+![The import step showing the completion summary](docs/images/07-import-done.png)
+<sub>When it finishes you get a count of what was created, updated and skipped.</sub>
+
 
 **5. Publish the layout.** ← *the step everyone misses.* The importer stops at a **draft**,
 exactly as the admin UI does, and it does not hand you a link to what it just created —
@@ -107,12 +131,15 @@ so find it yourself:
 - Open the system the import created (its name comes from `catalog.xlsx`)
 - **Layouts** tab → **Publish**
 
+![The Layouts tab of a configurable system, with the Publish button](docs/images/08-publish-layout.png)
+<sub>The step everyone misses. Until the layout is published the configurator loads an empty scene.</sub>
+
+
 Until you do, the configurator has nothing live to load and mounts into an empty
 scene — with no error, because nothing failed.
 
 Then grab the system id from its admin URL (`…/configurable-systems/2` → `2`) for
 `VITE_SYSTEM_ID` in step 3 below.
-
 
 Field-by-field schema notes, the `swaps` column format, and what the flat import *cannot*
 express: **[docs/import-sample-catalog.md](docs/import-sample-catalog.md)**.
@@ -124,6 +151,13 @@ that ties them together. Publish the layout at the end, exactly as in step 5.
 ## 3. Create an API key
 
 In the admin panel: **Settings → API Keys → Create key**.
+
+![The Create key dialog, showing name, scope and the allowed websites field](docs/images/10-api-key-create.png)
+
+<sub>The only time the full key is shown. After this dialog closes it is masked for ever.</sub>
+
+![The dialog showing the full key once, with a copy button](docs/images/11-api-key-copy.png)
+
 
 **Copy it immediately.** The full key is returned only in the response that creates it —
 every later read shows it masked as `ck_…abcd` (last four characters), so a key you did not
@@ -359,9 +393,6 @@ Two complete catalogs, **hosted rather than committed**, so cloning this repo do
 |---|---|---|---|---|
 | **Sectional sofa** — the Anne modular sofa | [sectional-sofa-import.zip](https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip) | 84 MB | 33 components, 12 variants, 4 option sets, 37 options, 16 materials, 3 presets, 3 constraints, 1 rule | 32 GLB, 30 textures, 37 thumbnails |
 | **Kitchen** — cabinets, appliances, worktops | [kitchen-import.zip](https://cnfs.imagine.io/sample-data/kitchen-import.zip) | 198 MB | 319 components, 72 variants, 15 option sets, 128 options, 15 materials, 74 rules, 20 constraints, 445 anchor points | 635 GLB, 100 SVG, 27 textures, 1 HDRI |
-
-Start with the sofa — half the size, and its 14-sheet workbook is small enough to read end to
-end. The kitchen shows anchor points, product option sets and rules at scale.
 
 Download into `data-samples/` (both the zips and the extracted folders are gitignored), then
 drop the **extracted folder** on the importer — the wrapping folder inside means the zip
