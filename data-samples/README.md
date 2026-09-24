@@ -5,8 +5,8 @@ small, and you pull only the bundle you actually want.
 
 | Bundle | Download | Size | Catalog | Assets |
 |---|---|---|---|---|
-| **Sectional sofa** — the Anne modular sofa | [sectional-sofa-import.zip](https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip) | 84 MB | 33 components, 12 product variants, 4 option sets, 37 options, 16 materials, 3 presets, 3 constraints, 1 rule | 32 GLB models, 30 material textures, 37 thumbnails |
-| **Kitchen** — cabinets, appliances, worktops | [kitchen-import.zip](https://cnfs.imagine.io/sample-data/kitchen-import.zip) | 198 MB | 319 components, 72 product variants, 15 option sets, 128 options, 15 materials, 74 rules, 20 constraints, 445 anchor points | 635 GLB models, 100 SVG icons, 27 textures, 1 studio HDRI |
+| **Sectional sofa** — the Anne modular sofa | [sectional-sofa-import.zip](https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip) | 22.1 MB | 33 components, 12 product variants, 4 option sets, 33 options, 12 materials, 3 presets, 5 constraints, 1 rule | 37 GLB models, 24 material textures, 37 thumbnails |
+| **Kitchen** — cabinets, appliances, worktops | [kitchen-import.zip](https://cnfs.imagine.io/sample-data/kitchen-import.zip) | 71.8 MB | 325 components, 75 product variants, 15 option sets, 129 options, 15 materials, 4 presets, 76 rules, 20 constraints, 641 anchor points | 631 GLB models, 98 SVG icons, 51 textures, 1 studio HDRIs |
 
 Start with the **sofa**: less than half the size, and small enough to read end to end in the
 workbook. The kitchen is the one to look at for anchor points, product option sets and rules
@@ -40,7 +40,7 @@ archive root and the importer cannot read the zip as-is:
 sectional-sofa-import/
 ├── catalog.xlsx              ← the import workbook, 14 sheets
 ├── README.md
-├── models/                   ← 32 component GLBs (incl. models/CUSHIONS/)
+├── models/                   ← 37 component GLBs (incl. models/CUSHIONS/)
 ├── materials/<name>/         ← texture maps, one folder per material
 └── thumbnails/               ← 37 module thumbnails
 ```
@@ -49,9 +49,9 @@ sectional-sofa-import/
 kitchen-import/
 ├── catalog.xlsx              ← 16 sheets, including Anchor Point and Product Option Set
 ├── README.md
-├── models/                   ← 635 GLBs across appliances/, cabinets/, backsplash/, …
+├── models/                   ← 631 GLBs across appliances/, cabinets/, backsplash/, …
 ├── materials/<name>/         ← granite, stone, terrazzo, wood_01…wood_07
-└── lightsettings/            ← studio HDRI
+└── lightsettings/            ← 2 studio HDRIs
 ```
 
 Give the importer the extracted **folder** (admin panel → **Import Catalog** → *select

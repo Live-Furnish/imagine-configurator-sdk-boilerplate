@@ -80,8 +80,8 @@ built-in demo data: a valid key pointed at an empty org gives you an empty scene
 The fastest path is to import a sample bundle — five steps, a few minutes, and you get a
 fully-populated configurator instead of an empty scene.
 
-**1. Download and extract a bundle.** There are two — the **sectional sofa** (84 MB) and the
-**kitchen** (198 MB); either one gets you a working configurator, so pick one and use it for
+**1. Download and extract a bundle.** There are two — the **sectional sofa** (22.1 MB) and the
+**kitchen** (71.8 MB); either one gets you a working configurator, so pick one and use it for
 the rest of this section. The catalogs are hosted, not
 committed — the clone stays small and you pull only what you want. Extracting is not
 optional: each zip contains a wrapping folder, so `catalog.xlsx` is *not* at the archive root
@@ -90,11 +90,11 @@ and the importer cannot read the zip as-is.
 ```bash
 cd data-samples
 
-# Sectional sofa — the Anne modular sofa, 84 MB
+# Sectional sofa — the Anne modular sofa, 22.1 MB
 curl -O https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip
 unzip sectional-sofa-import.zip
 
-# …or the kitchen — cabinets, appliances, worktops, 198 MB
+# …or the kitchen — cabinets, appliances, worktops, 71.8 MB
 curl -O https://cnfs.imagine.io/sample-data/kitchen-import.zip
 unzip kitchen-import.zip
 ```
@@ -384,12 +384,12 @@ Every public function, with signatures and worked examples:
 ## Sample catalogs
 
 Two complete catalogs, **hosted rather than committed**, so cloning this repo does not drag
-280 MB of models behind it:
+94 MB of models behind it:
 
 | Bundle | Download | Size | Catalog | Assets |
 |---|---|---|---|---|
-| **Sectional sofa** — the Anne modular sofa | [sectional-sofa-import.zip](https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip) | 84 MB | 33 components, 12 variants, 4 option sets, 37 options, 16 materials, 3 presets, 3 constraints, 1 rule | 32 GLB, 30 textures, 37 thumbnails |
-| **Kitchen** — cabinets, appliances, worktops | [kitchen-import.zip](https://cnfs.imagine.io/sample-data/kitchen-import.zip) | 198 MB | 319 components, 72 variants, 15 option sets, 128 options, 15 materials, 74 rules, 20 constraints, 445 anchor points | 635 GLB, 100 SVG, 27 textures, 1 HDRI |
+| **Sectional sofa** — the Anne modular sofa | [sectional-sofa-import.zip](https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip) | 22.1 MB | 33 components, 12 variants, 4 option sets, 33 options, 12 materials, 3 presets, 5 constraints, 1 rule | 37 GLB, 24 textures, 37 thumbnails |
+| **Kitchen** — cabinets, appliances, worktops | [kitchen-import.zip](https://cnfs.imagine.io/sample-data/kitchen-import.zip) | 71.8 MB | 325 components, 75 variants, 15 option sets, 129 options, 15 materials, 4 presets, 76 rules, 20 constraints, 641 anchor points | 631 GLB, 98 SVG, 51 textures, 2 HDRI |
 
 Download into `data-samples/` (both the zips and the extracted folders are gitignored), then
 drop the **extracted folder** on the importer — the wrapping folder inside means the zip

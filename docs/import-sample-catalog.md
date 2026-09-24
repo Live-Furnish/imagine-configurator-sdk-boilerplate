@@ -1,7 +1,7 @@
 # Importing the sample catalog
 
 `sectional-sofa-import.zip` is a complete, ready-to-import catalog for the **Anne modular
-sofa** — a 14-sheet workbook, 32 models, 30 material textures and 37 thumbnails. Importing it
+sofa** — a 14-sheet workbook, 37 models, 24 material textures and 37 thumbnails. Importing it
 gives you a populated configurator in a few minutes, and a worked example of the import format
 to model your own data on.
 
@@ -19,8 +19,8 @@ you want:
 
 | Bundle | Link | Size |
 |---|---|---|
-| Sectional sofa | [`sectional-sofa-import.zip`](https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip) | 84 MB |
-| Kitchen | [`kitchen-import.zip`](https://cnfs.imagine.io/sample-data/kitchen-import.zip) | 198 MB |
+| Sectional sofa | [`sectional-sofa-import.zip`](https://cnfs.imagine.io/sample-data/sectional-sofa-import.zip) | 22.1 MB |
+| Kitchen | [`kitchen-import.zip`](https://cnfs.imagine.io/sample-data/kitchen-import.zip) | 71.8 MB |
 
 ```bash
 cd data-samples
@@ -48,14 +48,14 @@ You get a single `sectional-sofa-import/` folder:
 ```
 sectional-sofa-import/
 ├── catalog.xlsx              ← the import workbook, 14 sheets
-├── models/                   ← 32 component GLBs (5 of them under models/CUSHIONS/)
-├── materials/<name>/         ← texture maps, one folder per material (30 files)
+├── models/                   ← 37 component GLBs (5 of them under models/CUSHIONS/)
+├── materials/<name>/         ← texture maps, one folder per material (24 files)
 ├── thumbnails/               ← 37 module thumbnails
 └── README.md                 ← generator notes (see the caveat below)
 ```
 
-The kitchen bundle has the same shape, at a different scale: 635 GLBs under `models/`
-(`appliances/`, `cabinets/`, `backsplash/`, …), material folders, and a studio HDRI in
+The kitchen bundle has the same shape, at a different scale: 631 GLBs under `models/`
+(`appliances/`, `cabinets/`, `backsplash/`, …), material folders, and two studio HDRIs in
 `lightsettings/`.
 
 **Extracting is not an optional convenience — do not upload the zip as-is.** Its root is the
@@ -108,19 +108,19 @@ Counts below are read from `catalog.xlsx` itself, sheet by sheet.
 | Component Group | 3 | Arms, Legs, Cushions |
 | Option Set | 4 | The selectable sets — layouts, upholstery, legs, cushions |
 | System Option Set | 4 | Each of those four bound to the system |
-| Material | 16 | Upholstery fabrics and leg finishes, each with its texture folder under `materials/` |
-| Component | 33 | Modules, arms, legs and cushions — one per GLB under `models/` |
-| Option | 37 | The choices inside the four option sets; many carry a `swaps` array |
+| Material | 12 | Upholstery fabrics and leg finishes, each with its texture folder under `materials/` |
+| Component | 33 | Modules, arms, legs and cushions, each backed by a GLB under `models/` |
+| Option | 33 | The choices inside the four option sets; many carry a `swaps` array |
 | Product Graph | 1 | `Anne` |
 | Product Variant | 12 | One default variant per module, each linked to its module component |
 | Configuration Preset | 3 | Ready-made layouts to start from |
 | Configurable System | 1 | **Anne Modular Sofa** |
 | Rule | 1 | A visibility rule in the custom DSL |
-| Constraint | 3 | `max_count` caps on how many of a module may be placed |
+| Constraint | 5 | `max_count` caps on how many of a module may be placed |
 
-The kitchen workbook has 16 sheets and the same columns, plus **Anchor Point** (445 rows) and
-**Product Option Set** (28): 319 components, 72 variants, 15 option sets, 128 options, 74
-rules, 20 constraints.
+The kitchen workbook has 16 sheets and the same columns, plus **Anchor Point** (641 rows) and
+**Product Option Set** (28): 325 components, 75 variants, 15 option sets, 129 options, 15
+materials, 4 presets, 76 rules, 20 constraints.
 
 The `README.md` inside the bundle covers the column formats — with the caveat below.
 

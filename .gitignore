@@ -15,7 +15,7 @@ dist-ssr
 SDKLICENSE.md
 
 # Sample catalogs are downloaded, not committed — see data-samples/README.md.
-# The extracted bundles are ~84 MB and ~198 MB of models and textures.
+# The extracted bundles are ~22.1 MB and ~71.8 MB of models and textures.
 data-samples/*.zip
 data-samples/kitchen-import/
 data-samples/sectional-sofa-import/
