@@ -326,19 +326,24 @@ If you would rather start from your own project than this one:
 ```bash
 npm create vite@latest my-configurator -- --template react --yes
 cd my-configurator
-npm install @imagineio/configurator-sdk react@^18.2 react-dom@^18.2
+npm install @imagineio/configurator-sdk
+```
+
+That is the whole install. The SDK is built against **React 19**, and the 3D stack
+(`three`, `@react-three/fiber`, `@react-three/drei`) is installed for you — npm 7+ adds the
+SDK's peer packages automatically at the versions the SDK is built against, so your app ends
+up with exactly one copy of `three`.
+
+**Still on React 18?** Install the SDK together with the React 18 build of the 3D stack, so
+npm does not pull in the React 19 peers:
+
+```bash
+npm install @imagineio/configurator-sdk react@^18.2 react-dom@^18.2 three@~0.159.0 @react-three/fiber@^8.15 @react-three/drei@^9.88 @react-three/postprocessing@^2.16 postprocessing@~6.36.0
 npm install -D @types/react@^18.3 @types/react-dom@^18.3
 ```
 
-Three details that are easy to get wrong, and what each one costs you:
-
-- **Always install with `@latest`.** Current builds publish under the `latest` dist-tag
-- **Pin React 18.** A fresh Vite template scaffolds React 19, which the SDK's 3D stack does
-  not support (`@react-three/fiber@8` needs React 18). Skip the pin and the install dies
-  with `ERESOLVE`.
-- **Pin the React *types* too**, even in a plain JavaScript project. create-vite scaffolds
-  React 19 types; pinning only the runtime leaves them mismatched — no error, just wrong
-  autocomplete everywhere.
+Pin the React *types* too, even in a plain JavaScript project — a mismatch gives no error,
+just wrong autocomplete everywhere.
 
 Then add the Vite plugin, which serves the SDK's static assets and dedupes `three`/`react`
 so exactly one copy of each ends up in your bundle:
@@ -348,6 +353,9 @@ so exactly one copy of each ends up in your bundle:
 import imagineConfigurator from '@imagineio/configurator-sdk/vite';
 export default defineConfig({ plugins: [react(), imagineConfigurator()] });
 ```
+
+…or follow the manual steps in the
+[Getting Started guide](https://configurator-platform.imagine.io/sdk/index.html).
 
 ---
 
