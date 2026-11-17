@@ -33,6 +33,29 @@ account to a configurator running on your own data.
 
 ---
 
+## FAQ
+
+**What is this SDK?**
+
+The imagine.io Configurator Platform SDK lets you build a custom 3D product configurator in
+React. You set up products, rules and prices in the imagine.io admin
+panel, and the SDK renders them as a complete configurator.
+
+**Does it support React?**
+
+Yes, the SDK supports React 19 and React 18 (see
+[Installing the SDK in your own app](#installing-the-sdk-in-your-own-app)).
+
+**Is there a free plan?**
+
+Yes. You can use the platform for free with limited access.
+
+**Where is the full documentation?**
+
+The full documentation is available at **[configurator-platform.imagine.io/sdk](https://configurator-platform.imagine.io/sdk/)**.
+
+---
+
 ## Quick start
 
 ```bash
